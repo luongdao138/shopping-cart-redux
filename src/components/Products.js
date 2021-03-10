@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import Zoom from 'react-reveal/Zoom';
 import { fetchProducts } from './actions/productActions';
 import { connect } from 'react-redux';
+import { addToCart } from './actions/cartActions';
 // import App from '../App';
 
 class Products extends Component {
@@ -35,7 +36,7 @@ class Products extends Component {
 
   render() {
     const { product } = this.state;
-    const { products, handleAddToCart } = this.props;
+    const { products, addToCart, cartItems } = this.props;
     return (
       <div>
         <Fade bottom cascade>
@@ -63,7 +64,7 @@ class Products extends Component {
                         <button
                           className='button primary'
                           onClick={() => {
-                            handleAddToCart(product);
+                            addToCart(cartItems, product);
                           }}
                         >
                           Add To Cart
@@ -111,7 +112,7 @@ class Products extends Component {
                     <button
                       className='button primary'
                       onClick={() => {
-                        handleAddToCart(product);
+                        addToCart(cartItems, product);
                         this.closeModal();
                       }}
                     >
@@ -130,7 +131,10 @@ class Products extends Component {
 
 export default connect(
   (state) => {
-    return { products: state.products.filteredItems };
+    return {
+      products: state.products.filteredItems,
+      cartItems: state.carts.cartItems,
+    };
   },
-  { fetchProducts }
+  { fetchProducts, addToCart }
 )(Products);
