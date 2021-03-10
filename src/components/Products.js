@@ -130,7 +130,7 @@ class Products extends Component {
 
 export default connect(
   (state) => {
-    return { products: state.products.items };
+    return { products: state.products.filteredItems };
   },
   { fetchProducts }
 )(Products);

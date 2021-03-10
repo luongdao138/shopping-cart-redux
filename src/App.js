@@ -55,56 +55,56 @@ class App extends React.Component {
     });
   };
 
-  filterProducts = (size) => {
-    this.setState((state) => {
-      const { sort } = this.state;
-      const newProducts =
-        size === ''
-          ? data.products.slice().sort((a, b) => {
-              switch (sort) {
-                case 'lowest':
-                  return a.price - b.price;
-                case 'highest':
-                  return b.price - a.price;
+  // filterProducts = (size) => {
+  //   this.setState((state) => {
+  //     const { sort } = this.state;
+  //     const newProducts =
+  //       size === ''
+  //         ? data.products.slice().sort((a, b) => {
+  //             switch (sort) {
+  //               case 'lowest':
+  //                 return a.price - b.price;
+  //               case 'highest':
+  //                 return b.price - a.price;
 
-                default:
-                  return b.id - a.id;
-              }
-            })
-          : data.products
-              .filter((product) => product.availableSizes.indexOf(size) >= 0)
-              .slice()
-              .sort((a, b) => {
-                switch (sort) {
-                  case 'lowest':
-                    return a.price - b.price;
-                  case 'highest':
-                    return b.price - a.price;
+  //               default:
+  //                 return b.id - a.id;
+  //             }
+  //           })
+  //         : data.products
+  //             .filter((product) => product.availableSizes.indexOf(size) >= 0)
+  //             .slice()
+  //             .sort((a, b) => {
+  //               switch (sort) {
+  //                 case 'lowest':
+  //                   return a.price - b.price;
+  //                 case 'highest':
+  //                   return b.price - a.price;
 
-                  default:
-                    return b.id - a.id;
-                }
-              });
-      return { ...state, size, products: newProducts };
-    });
-  };
+  //                 default:
+  //                   return b.id - a.id;
+  //               }
+  //             });
+  //     return { ...state, size, products: newProducts };
+  //   });
+  // };
 
-  sortProducts = (sort) => {
-    this.setState((state) => {
-      const newProducts = state.products.slice().sort((a, b) => {
-        switch (sort) {
-          case 'lowest':
-            return a.price - b.price;
-          case 'highest':
-            return b.price - a.price;
+  // sortProducts = (sort) => {
+  //   this.setState((state) => {
+  //     const newProducts = state.products.slice().sort((a, b) => {
+  //       switch (sort) {
+  //         case 'lowest':
+  //           return a.price - b.price;
+  //         case 'highest':
+  //           return b.price - a.price;
 
-          default:
-            return b.id - a.id;
-        }
-      });
-      return { ...state, sort, products: newProducts };
-    });
-  };
+  //         default:
+  //           return b.id - a.id;
+  //       }
+  //     });
+  //     return { ...state, sort, products: newProducts };
+  //   });
+  // };
 
   render() {
     const { products, size, sort } = this.state;
@@ -117,16 +117,8 @@ class App extends React.Component {
           <main>
             <div className='content'>
               <div className='main'>
-                <Filter
-                  count={products.length}
-                  {...this.state}
-                  filterProducts={this.filterProducts}
-                  sortProducts={this.sortProducts}
-                />
-                <Products
-                  products={products}
-                  handleAddToCart={this.handleAddToCart}
-                />
+                <Filter />
+                <Products handleAddToCart={this.handleAddToCart} />
               </div>
               <div className='sidebar'>
                 <Cart
