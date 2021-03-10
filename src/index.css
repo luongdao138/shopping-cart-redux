@@ -203,3 +203,31 @@ footer {
 .total div {
   flex: 1;
 }
+
+/* Form */
+form {
+  width: 100%;
+}
+.form-container {
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.form-container li {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+input {
+  padding: 1rem;
+  border: 1px solid #c0c0c0;
+  outline: none;
+  border-radius: 4px;
+}
+
+li#button-wrappper {
+  flex-direction: row;
+  justify-content: space-between;
+}
