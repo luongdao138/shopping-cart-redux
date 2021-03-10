@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import formatCurrency from '../util';
+import Fade from 'react-reveal/Fade';
 
 export default class Cart extends Component {
   constructor(props) {
@@ -46,39 +47,41 @@ export default class Cart extends Component {
     const { cartItems, removeFromCart } = this.props;
 
     return (
-      <>
+      <div>
         <div className='cart cart-header'>
           {cartItems.length === 0
             ? 'Your cart is empty!'
             : `You have ${cartItems.length} products in your cart!`}
         </div>
         <div className='cart'>
-          <ul className='cart-items'>
-            {cartItems.map((cartItem) => {
-              const { id, image, title, price, count } = cartItem;
-              return (
-                <li key={id}>
-                  <div>
-                    <img src={image} alt={title} />
-                  </div>
-                  <div>
-                    <div>{title}</div>
-                    <div className='right'>
-                      {formatCurrency(price)} x {count}{' '}
-                      <button
-                        className='button'
-                        onClick={() => {
-                          removeFromCart(cartItem);
-                        }}
-                      >
-                        Remove
-                      </button>
+          <Fade left cascade>
+            <ul className='cart-items'>
+              {cartItems.map((cartItem) => {
+                const { id, image, title, price, count } = cartItem;
+                return (
+                  <li key={id}>
+                    <div>
+                      <img src={image} alt={title} />
                     </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+                    <div>
+                      <div>{title}</div>
+                      <div className='right'>
+                        {formatCurrency(price)} x {count}{' '}
+                        <button
+                          className='button'
+                          onClick={() => {
+                            removeFromCart(cartItem);
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </Fade>
         </div>
         {cartItems.length > 0 && (
           <div className='cart'>
@@ -101,7 +104,7 @@ export default class Cart extends Component {
           </div>
         )}
         {this.state.isShowCheckout && (
-          <>
+          <Fade right>
             <div className='cart'>
               <form onSubmit={this.createOrder}>
                 <ul className='form-container'>
@@ -151,9 +154,9 @@ export default class Cart extends Component {
                 </ul>
               </form>
             </div>
-          </>
+          </Fade>
         )}
-      </>
+      </div>
     );
   }
 }
