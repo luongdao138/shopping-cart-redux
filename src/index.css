@@ -231,3 +231,30 @@ li#button-wrappper {
   flex-direction: row;
   justify-content: space-between;
 }
+
+/* Product detail */
+.product-details {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 96vh;
+  justify-content: space-between;
+}
+
+.product-details img {
+  max-height: 80vh;
+  max-width: 46rem;
+  margin: 0px auto;
+}
+
+.product-details-description {
+  flex: 1 1;
+  margin: 1rem;
+}
+
+.close-modal {
+  position: absolute;
+  right: 1rem;
+  top: 2.5rem;
+  cursor: pointer;
+  z-index: 100;
+}
