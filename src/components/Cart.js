@@ -2,8 +2,49 @@ import React, { Component } from 'react';
 import formatCurrency from '../util';
 
 export default class Cart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      address: '',
+      isShowCheckout: false,
+    };
+  }
+  handleCloseForm = () => {
+    this.setState((state) => {
+      return {
+        name: '',
+        email: '',
+        address: '',
+        isShowCheckout: false,
+      };
+    });
+  };
+
+  createOrder = (e) => {
+    e.preventDefault();
+    const { name, email, address } = this.state;
+    const { cartItems } = this.props;
+    const order = { name, email, address, cartItems };
+    this.props.createOrder(order);
+  };
+
+  handleInput = (e) => {
+    this.setState((state) => {
+      return { ...state, [e.target.name]: e.target.value };
+    });
+  };
+
+  handleShowCheckout = () => {
+    this.setState((state) => {
+      return { ...state, isShowCheckout: true };
+    });
+  };
+
   render() {
     const { cartItems, removeFromCart } = this.props;
+
     return (
       <>
         <div className='cart cart-header'>
@@ -50,9 +91,67 @@ export default class Cart extends Component {
                   }, 0)
                 )}
               </div>
-              <button className='button primary'>Proceed</button>
+              <button
+                className='button primary'
+                onClick={this.handleShowCheckout}
+              >
+                Proceed
+              </button>
             </div>
           </div>
+        )}
+        {this.state.isShowCheckout && (
+          <>
+            <div className='cart'>
+              <form onSubmit={this.createOrder}>
+                <ul className='form-container'>
+                  <li>
+                    {' '}
+                    <label htmlFor='email'>Email</label>
+                    <input
+                      id='email'
+                      type='text'
+                      autoFocus
+                      onChange={this.handleInput}
+                      name='email'
+                    />
+                  </li>
+                  <li>
+                    {' '}
+                    <label htmlFor='name'>Name</label>
+                    <input
+                      id='name'
+                      type='text'
+                      name='name'
+                      onChange={this.handleInput}
+                    />
+                  </li>
+                  <li>
+                    {' '}
+                    <label htmlFor='address'>Address</label>
+                    <input
+                      id='address'
+                      name='address'
+                      type='text'
+                      onChange={this.handleInput}
+                    />
+                  </li>
+                  <li id='button-wrappper'>
+                    <button
+                      className='button primary'
+                      type='button'
+                      onClick={this.handleCloseForm}
+                    >
+                      Cancel
+                    </button>
+                    <button className='button primary' type='submit'>
+                      Checkout
+                    </button>
+                  </li>
+                </ul>
+              </form>
+            </div>
+          </>
         )}
       </>
     );
