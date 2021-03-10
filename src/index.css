@@ -141,3 +141,16 @@ footer {
 .button.primary {
   background-color: #ffc000;
 }
+
+/* Filter section */
+.filter {
+  display: flex;
+  padding: 1rem;
+  padding: 1rem;
+  border-bottom: 0.1rem solid #c0c0c0;
+  align-items: center;
+}
+
+.filter div {
+  flex: 1;
+}
