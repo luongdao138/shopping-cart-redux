@@ -3,7 +3,7 @@ import formatCurrency from '../util';
 
 export default class Products extends Component {
   render() {
-    const { products } = this.props;
+    const { products, handleAddToCart } = this.props;
     return (
       <div>
         <ul className='products'>
@@ -18,7 +18,14 @@ export default class Products extends Component {
                   </a>
                   <div className='product-price'>
                     <div>{formatCurrency(price)}</div>
-                    <button className='button primary'>Add To Cart</button>
+                    <button
+                      className='button primary'
+                      onClick={() => {
+                        handleAddToCart(product);
+                      }}
+                    >
+                      Add To Cart
+                    </button>
                   </div>
                 </div>
               </li>
