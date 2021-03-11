@@ -2,6 +2,7 @@ import {
   FETCH_PRODUCTS,
   FILTER_PRODUCTS_BY_SIZE,
   ORDER_PRODUCTS_BY_PRICE,
+  UPDATE_ADDCART_STATUS,
 } from '../../types';
 import data from '../../data.json';
 
@@ -9,7 +10,9 @@ export const fetchProducts = () => {
   return (dispatch) => {
     dispatch({
       type: FETCH_PRODUCTS,
-      payload: data.products,
+      payload: data.products.map((product) => {
+        return { ...product, isAddedCart: false };
+      }),
     });
   };
 };
@@ -59,6 +62,25 @@ export const sortProducts = (products, sort) => {
               return b.id - a.id;
           }
         }),
+      },
+    });
+  };
+};
+
+export const updateAddCartStatus = (products, product) => {
+  return (dispatch) => {
+    const newProducts = products.map((item) => {
+      if (item.id === product.id) {
+        console.log(item.isAddedCart);
+        return { ...item, isAddedCart: true };
+      } else {
+        return item;
+      }
+    });
+    dispatch({
+      type: UPDATE_ADDCART_STATUS,
+      payload: {
+        items: newProducts,
       },
     });
   };

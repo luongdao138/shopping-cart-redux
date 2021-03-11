@@ -3,7 +3,7 @@ import formatCurrency from '../util';
 import Fade from 'react-reveal/Fade';
 import Modal from 'react-modal';
 import Zoom from 'react-reveal/Zoom';
-import { fetchProducts } from './actions/productActions';
+import { fetchProducts, updateAddCartStatus } from './actions/productActions';
 import { connect } from 'react-redux';
 import { addToCart } from './actions/cartActions';
 // import App from '../App';
@@ -36,7 +36,7 @@ class Products extends Component {
 
   render() {
     const { product } = this.state;
-    const { products, addToCart, cartItems } = this.props;
+    const { products, addToCart, cartItems, updateAddCartStatus } = this.props;
     return (
       <div>
         <Fade bottom cascade>
@@ -65,6 +65,7 @@ class Products extends Component {
                           className='button primary'
                           onClick={() => {
                             addToCart(cartItems, product);
+                            // updateAddCartStatus(products, product);
                           }}
                         >
                           Add To Cart
@@ -113,6 +114,7 @@ class Products extends Component {
                       className='button primary'
                       onClick={() => {
                         addToCart(cartItems, product);
+                        // updateAddCartStatus(products, product);
                         this.closeModal();
                       }}
                     >
@@ -136,5 +138,5 @@ export default connect(
       cartItems: state.carts.cartItems,
     };
   },
-  { fetchProducts, addToCart }
+  { fetchProducts, addToCart, updateAddCartStatus }
 )(Products);

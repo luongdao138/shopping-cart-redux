@@ -258,3 +258,7 @@ li#button-wrappper {
   cursor: pointer;
   z-index: 100;
 }
+
+.cart-action input {
+  width: 40px;
+}

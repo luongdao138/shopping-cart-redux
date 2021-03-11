@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import formatCurrency from '../util';
 import Fade from 'react-reveal/Fade';
 import { connect } from 'react-redux';
-import { removeFromCart } from './actions/cartActions';
+import {
+  removeFromCart,
+  clearCart,
+  addToCart,
+  decreaseItemNumber,
+} from './actions/cartActions';
 
 class Cart extends Component {
   constructor(props) {
+    console.log(props);
     super(props);
     this.state = {
       name: '',
@@ -46,7 +52,13 @@ class Cart extends Component {
   };
 
   render() {
-    const { cartItems, removeFromCart } = this.props;
+    const {
+      cartItems,
+      removeFromCart,
+      clearCart,
+      addToCart,
+      decreaseItemNumber,
+    } = this.props;
 
     return (
       <div>
@@ -69,6 +81,25 @@ class Cart extends Component {
                       <div>{title}</div>
                       <div className='right'>
                         {formatCurrency(price)} x {count}{' '}
+                        <div className='cart-action'>
+                          <button
+                            className='button'
+                            onClick={() => {
+                              decreaseItemNumber(cartItems, cartItem);
+                            }}
+                          >
+                            -
+                          </button>
+                          <input type='text' value={count} readOnly />
+                          <button
+                            className='button'
+                            onClick={() => {
+                              addToCart(cartItems, cartItem);
+                            }}
+                          >
+                            +
+                          </button>
+                        </div>
                         <button
                           className='button'
                           onClick={() => {
@@ -85,6 +116,11 @@ class Cart extends Component {
             </ul>
           </Fade>
         </div>
+        {cartItems.length !== 0 && (
+          <button className='button' onClick={clearCart}>
+            Clear Cart
+          </button>
+        )}
         {cartItems.length > 0 && (
           <div className='cart'>
             <div className='total'>
@@ -171,5 +207,8 @@ export default connect(
   },
   {
     removeFromCart,
+    clearCart,
+    decreaseItemNumber,
+    addToCart,
   }
 )(Cart);
